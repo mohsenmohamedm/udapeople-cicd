@@ -1,4 +1,4 @@
----
+    ---
 
 - name: "configuration play." 
   hosts: web

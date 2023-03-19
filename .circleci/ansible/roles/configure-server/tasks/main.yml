@@ -1,5 +1,5 @@
 ---
-- name: "Add Node.js"
+- name: "Add Node.js from Nodesource"
   become: true
   shell: |
     curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -

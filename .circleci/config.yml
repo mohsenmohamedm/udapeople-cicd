@@ -218,7 +218,7 @@ jobs:
 
 
 
-      
+
 
   run-migrations:
     docker:
@@ -261,7 +261,7 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+            export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --region us-west-2 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
 
             echo API_URL="http://${BACKEND_PUBLIC_IP}:3030" >> frontend/.env
             cat frontend/.env
@@ -443,6 +443,9 @@ workflows:
       #     requires: [smoke-test]      
       # - cleanup:
       #     requires: [cloudfront-update]
+
+
+      
 
 
           

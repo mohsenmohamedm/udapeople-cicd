@@ -187,7 +187,7 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            aws ec2 describe-instances --region us-west-2 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> .circleci/ansible/inventory.txt
+            aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> .circleci/ansible/inventory.txt
             cat .circleci/ansible/inventory.txt
 
       - persist_to_workspace:
@@ -261,7 +261,8 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --region us-west-2 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+            export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --region us-east-1
+             --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
 
             echo API_URL="http://${BACKEND_PUBLIC_IP}:3030" >> frontend/.env
             cat frontend/.env
@@ -337,7 +338,7 @@ jobs:
       - run:
           name: Backend smoke test.
           command: |
-            export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --region us-west-2 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+            export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
 
             export API_URL=http://${BACKEND_PUBLIC_IP}:3030
             if curl -s $API_URL/api/status | grep "ok"

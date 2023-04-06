@@ -35,7 +35,7 @@ Resources:
           CidrIp: 0.0.0.0/0  
   EC2Instance:
     Type: AWS::EC2::Instance
-    Properties:
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, InstanceType, State.Name, PublicIpAddress, PrivateIpAddress, LaunchTime]' --output table    Properties:
       InstanceType: t2.micro
       SecurityGroups:
         - Ref: InstanceSecurityGroup
@@ -47,6 +47,8 @@ Resources:
           Value: !Sub backend-${ID}
         - Key: project
           Value: Udapeople  
+
+          
 
           
 

@@ -196,7 +196,6 @@ jobs:
             - project/.circleci/ansible/inventory.txt
 
       - destroy-environment
-+
   configure-infrastructure:
     docker:
         - image: cimg/base:stable

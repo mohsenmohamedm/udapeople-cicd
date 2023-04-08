@@ -35,26 +35,14 @@ Resources:
           CidrIp: 0.0.0.0/0  
   EC2Instance:
     Type: AWS::EC2::Instance
-aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, InstanceType, State.Name, PublicIpAddress, PrivateIpAddress, LaunchTime]' --output table    Properties:
-      InstanceType: t4.micro
+    Properties:
+      InstanceType: t2.micro
       SecurityGroups:
         - Ref: InstanceSecurityGroup
-      KeyName: udacity
-      # ImageId: ami-0557a15b87f6559cf
-      ImageId: ami-007855ac798b5175e
+      KeyName: udacity 
+      ImageId: ami-09cd747c78a9add63 
       Tags:
         - Key: Name
           Value: !Sub backend-${ID}
         - Key: project
-          Value: Udapeople  
-
-
-
-
-
-
-          
-
-
-
-          
+          Value: Udapeople

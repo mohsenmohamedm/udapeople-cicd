@@ -195,24 +195,24 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt
 
-      - destroy-environment
-  configure-infrastructure:
-    docker:
-        - image: cimg/base:stable
-    steps:
-      - checkout
-      - install_ansible
-      - add_ssh_keys:
-          fingerprints: ["66:7a:47:2b:54:cd:b6:76:25:3f:89:ea:cc:8c:df:da"]
-      - attach_workspace:
-          at: ~/
-      - run:
-          name: Configure server
-          command: |
-            cd .circleci/ansible
-            cat inventory.txt
-            ansible-playbook -i inventory.txt configure-server.yml
-      - destroy-environment
+  #     - destroy-environment
+  # configure-infrastructure:
+  #   docker:
+  #       - image: cimg/base:stable
+  #   steps:
+  #     - checkout
+  #     - install_ansible
+  #     - add_ssh_keys:
+  #         fingerprints: ["66:7a:47:2b:54:cd:b6:76:25:3f:89:ea:cc:8c:df:da"]
+  #     - attach_workspace:
+  #         at: ~/
+  #     - run:
+  #         name: Configure server
+  #         command: |
+  #           cd .circleci/ansible
+  #           cat inventory.txt
+  #           ansible-playbook -i inventory.txt configure-server.yml
+  #     - destroy-environment
 
 
 
@@ -445,7 +445,7 @@ workflows:
       #     requires: [cloudfront-update]
 
 
-      
+
 
 
 

@@ -142,7 +142,7 @@ jobs:
           keys: [frontend-deps]
       - run:
           name: Fornt-end Scan
-          command:
+          command: |
             cd frontend
             npm install
             npm aduit --level=critical
@@ -157,7 +157,7 @@ jobs:
           keys: [bakend-deps]
       - run:
           name: bakend-end Scan
-          command:
+          command: |
             cd backend
             npm install
             npm aduit --level=critical

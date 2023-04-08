@@ -203,7 +203,7 @@ jobs:
       - checkout
       - install_ansible
       - add_ssh_keys:
-          fingerprints: ["f4:b7:71:24:85:96:e1:dc:b3:12:c7:4e:7a:17:8d:33"]
+          fingerprints: ["66:7a:47:2b:54:cd:b6:76:25:3f:89:ea:cc:8c:df:da"]
       - attach_workspace:
           at: ~/
       - run:
@@ -282,7 +282,7 @@ jobs:
       - install_ansible
       - install_nodejs
       - add_ssh_keys:
-          fingerprints: ["f4:b7:71:24:85:96:e1:dc:b3:12:c7:4e:7a:17:8d:33"]
+          fingerprints: ["66:7a:47:2b:54:cd:b6:76:25:3f:89:ea:cc:8c:df:da"]
       - attach_workspace:
           at: ~/
       - restore_cache:
@@ -398,7 +398,7 @@ jobs:
   #             aws cloudformation delete-stack --stack-name "backend-${OLDWORKFLOWID}"
   #             aws cloudformation delete-stack --stack-name "frontend-${OLDWORKFLOWID}"
   #             fi
-
+  
 
 
 workflows:

@@ -295,7 +295,7 @@ jobs:
       - run:
           name: Package backend
           command: |
-            cd backend
+            cd backend  
             npm run build
             tar -czvf artifact.tar.gz dist/* package*
 

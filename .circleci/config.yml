@@ -151,7 +151,7 @@ jobs:
   scan-backend:
     docker:
       - image: cimg/node:13.8.0
-   teps:
+    steps:
       - checkout
       - restore_cache:
           keys: [bakend-deps]

@@ -158,9 +158,9 @@ jobs:
       - run:
           name: bakend-end Scan
           command:
-          cd backend
-          npm install
-          npm aduit --level=critical
+            cd backend
+            npm install
+            npm aduit --level=critical
              
 #   deploy-infrastructure:
 #     docker:
@@ -436,6 +436,8 @@ workflows:
 #           requires: [smoke-test]      
 #       # - cleanup:
 #       #     requires: [cloudfront-update]
+
+
 
 
 

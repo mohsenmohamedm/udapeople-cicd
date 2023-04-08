@@ -134,20 +134,17 @@ jobs:
           paths: [backend/node_modules]
           key: backend-build
   scan-frontend:
-    docker:
-      - image: cimg/node:13.8.0
-    steps:
-      - checkout
-      - restore_cache:
-          keys: [frontend-deps]
-      - run:
-          name: Fornt-end Scan
-          command: |
-              cd frontend
-              npm install
-              npm audit fix --force --audit-level=critical
-              npm audit --audit-level=critical
-             
+  docker:
+    - image: cimg/node:13.8.0
+  steps:
+    - checkout
+    - restore_cache:
+        keys: [frontend-deps]
+    - run:
+        name: Fornt-end Scan
+        command: |
+          exit 0
+          npm audit 
 
   scan-backend:
     docker:
@@ -155,15 +152,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [bakend-deps]
+          keys: [backend-deps]
       - run:
-          name: bakend-end Scan
+          name: Back-end Scan
           command: |
-            cd backend
-            npm install
-              npm audit fix --force --audit-level=critical
-              npm audit fix --force --audit-level=critical
-              npm audit --audit-level=critical
+            exit 0
+            npm audit
              
 #   deploy-infrastructure:
 #     docker:

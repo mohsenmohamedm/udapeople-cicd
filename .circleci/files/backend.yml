@@ -36,7 +36,7 @@ Resources:
   EC2Instance:
     Type: AWS::EC2::Instance
 aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, InstanceType, State.Name, PublicIpAddress, PrivateIpAddress, LaunchTime]' --output table    Properties:
-      InstanceType: t2.micro
+      InstanceType: t4.micro
       SecurityGroups:
         - Ref: InstanceSecurityGroup
       KeyName: udacity
@@ -49,7 +49,7 @@ aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, In
           Value: Udapeople  
 
 
-          
+
 
 
 

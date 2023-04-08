@@ -143,9 +143,9 @@ jobs:
       - run:
           name: Fornt-end Scan
           command:
-          cd frontend
-          npm install
-          npm aduit --level=critical |
+            cd frontend
+            npm install
+            npm aduit --level=critical
              
 
   scan-backend:
@@ -160,7 +160,7 @@ jobs:
           command:
           cd backend
           npm install
-          npm aduit --level=critical |
+          npm aduit --level=critical
              
 #   deploy-infrastructure:
 #     docker:

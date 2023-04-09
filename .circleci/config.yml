@@ -172,7 +172,7 @@ jobs:
           command: |
             exit 0
             npm audit
-       - notify_on_failure
+      - notify_on_failure
 
   # deploy-infrastructure:
   #   docker:

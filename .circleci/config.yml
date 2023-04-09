@@ -93,7 +93,7 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-deps
-      -   notify_on_failure
+      - notify_on_failure
 
   build-backend:
     docker:
@@ -111,7 +111,7 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-deps
-      -   notify_on_failure
+      - notify_on_failure
 
   test-frontend:
     docker:
@@ -126,7 +126,7 @@ jobs:
             cd frontend
             npm install
             npm test
-      -   notify_on_failure     
+      - notify_on_failure     
 
   test-backend:
     docker:
@@ -141,7 +141,7 @@ jobs:
             cd backend
             npm install
             npm test
-      -   notify_on_failure
+      - notify_on_failure
 
       - save_cache:
           paths: [backend/node_modules]
@@ -158,7 +158,7 @@ jobs:
           command: |
             exit 0
             npm audit 
-      -   notify_on_failure
+      - notify_on_failure
 
   scan-backend:
     docker:
@@ -172,7 +172,7 @@ jobs:
           command: |
             exit 0
             npm audit
-      -   notify_on_failure
+       - notify_on_failure
 
   # deploy-infrastructure:
   #   docker:
@@ -461,4 +461,3 @@ workflows:
       # - cleanup:
       #     requires: [cloudfront-update]
 
-      

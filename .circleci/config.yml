@@ -2,79 +2,79 @@ version: 2.1
 
 # orbs:
 #   slack: circleci/slack@4.9.3
-# commands:
+commands:
 #   notify_on_failure: 
 #     steps:
 #       - slack/notify:
 #           event: fail
 #           channel: cicd-pipeline
 #           templete: basic_fail_1
-#   install_awscli:
-#     description: Install Aws CLI v2
-#     steps:
-#       - run:
-#           name: Install Aws CLI v2
-#           command: |
-#             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-#             unzip awscliv2.zip
-#             sudo ./aws/install
+  install_awscli:
+    description: Install Aws CLI v2
+    steps:
+      - run:
+          name: Install Aws CLI v2
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
 
-#   install_ansible:
-#     description: Install Ansible 
-#     steps:
-#       - run:
-#           name: Install Ansible 
-#           command: |
-#             sudo apt update
-#             sudo apt install software-properties-common --yes
-#             sudo add-apt-repository --yes --update ppa:ansible/ansible --yes
-#             sudo apt install ansible -y         
+  install_ansible:
+    description: Install Ansible 
+    steps:
+      - run:
+          name: Install Ansible 
+          command: |
+            sudo apt update
+            sudo apt install software-properties-common --yes
+            sudo add-apt-repository --yes --update ppa:ansible/ansible --yes
+            sudo apt install ansible -y         
 
-#   install_nodejs:  #we will install nodejs 13
-#     description: Install Node.js 13
-#     steps:
-#       - run:
-#           name: Install Node.js 13
-#           command: |
-#             # Install Node.js LTS version as our base Node.js version
-#             curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-#             sudo apt install -y nodejs
+  install_nodejs:  #we will install nodejs 13
+    description: Install Node.js 13
+    steps:
+      - run:
+          name: Install Node.js 13
+          command: |
+            # Install Node.js LTS version as our base Node.js version
+            curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+            sudo apt install -y nodejs
 
 
-#   destroy-environment:
-#     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-#     parameters:
-#       Workflow_ID:
-#         type: string
-#         default: ${CIRCLE_WORKFLOW_ID:0:7}
-#     steps:
-#       - run:
-#           name: Destroy environment
-#           when: on_fail
-#           command: |
-#             aws cloudformation delete-stack --stack-name backend-<< parameters.Workflow_ID >>
-#             aws s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
-#             aws cloudformation delete-stack --stack-name frontend-<< parameters.Workflow_ID >>
+  destroy-environment:
+    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+    parameters:
+      Workflow_ID:
+        type: string
+        default: ${CIRCLE_WORKFLOW_ID:0:7}
+    steps:
+      - run:
+          name: Destroy environment
+          when: on_fail
+          command: |
+            aws cloudformation delete-stack --stack-name backend-<< parameters.Workflow_ID >>
+            aws s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
+            aws cloudformation delete-stack --stack-name frontend-<< parameters.Workflow_ID >>
 
-#   revert-migrations:
-#     description: Revert the last migration if successfully run in the current workflow.
-#     parameters:
-#       Workflow_ID:
-#         type: string
-#         default: ${CIRCLE_WORKFLOW_ID:0:7}
-#     steps:
-#       - run:
-#           name: Revert migrations
-#           when: on_fail
-#           command: |
-#             SUCCESS=$(curl --insecure  https://kvdb.io/${KVDB_BUCKET}/migration_<< parameters.Workflow_ID >>)
-#             # Logic for reverting the database state
-#             if (( $SUCCESS == 1 ));
-#             then
-#               cd ~/projects/backend
-#               npm install
-#               npm run migration:revert
-#             fi
+  revert-migrations:
+    description: Revert the last migration if successfully run in the current workflow.
+    parameters:
+      Workflow_ID:
+        type: string
+        default: ${CIRCLE_WORKFLOW_ID:0:7}
+    steps:
+      - run:
+          name: Revert migrations
+          when: on_fail
+          command: |
+            SUCCESS=$(curl --insecure  https://kvdb.io/${KVDB_BUCKET}/migration_<< parameters.Workflow_ID >>)
+            # Logic for reverting the database state
+            if (( $SUCCESS == 1 ));
+            then
+              cd ~/projects/backend
+              npm install
+              npm run migration:revert
+            fi
 
 jobs:
   build-frontend:

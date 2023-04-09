@@ -413,14 +413,14 @@ jobs:
   #             aws cloudformation delete-stack --stack-name "backend-${OLDWORKFLOWID}"
   #             aws cloudformation delete-stack --stack-name "frontend-${OLDWORKFLOWID}"
   #             fi
-    notify_on_success:
-      docker:
-        - image: cimg/base:stable
-      steps:
-        - slack/notify:
-            event: pass
-            channel: cicd-pipeline
-            template: success_tagged_deployment_1
+  notify_on_success:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - slack/notify:
+          event: pass
+          channel: cicd-pipeline
+          template: success_tagged_deployment_1
 
 workflows:
   default:

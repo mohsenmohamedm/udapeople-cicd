@@ -15,6 +15,10 @@ Resources:
        Rules:
          - ObjectOwnership: ObjectWriter
       PublicAccessBlockConfiguration:
+          BlockPublicAcls: false
+          BlockPublicPolicy: false
+          IgnorePublicAcls: false
+          RestrictPublicBuckets: false 
           IndexDocument: index.html
           ErrorDocument: 404.html
   

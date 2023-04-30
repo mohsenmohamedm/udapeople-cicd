@@ -520,9 +520,9 @@ workflows:  # create workflows
           requires: [deploy-infrastructure]
       - run-migrations:
           requires: [configure-infrastructure]
-      # - deploy-frontend
-      #     requires: [deploy-infrastructure]
-      # - deploy-backend:
+      - deploy-frontend
+          requires: [deploy-infrastructure]
+      - deploy-backend:
       #     requires: [run-migrations]
       # - smoke-test:
       #     requires: [deploy-backend, deploy-frontend]

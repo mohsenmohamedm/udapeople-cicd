@@ -10,17 +10,18 @@ Resources:
   WebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "udapeople-${ID}"
-      OwnershipControls:
-       Rules:
-         - ObjectOwnership: ObjectWriter
+      BucketName: !Sub "udapeople-${ID}"     
+      # AccessControl: PublicRead
+      OwnershipControls:  # << Add   
+        Rules:
+          - ObjectOwnership: ObjectWriter
       PublicAccessBlockConfiguration:
-          BlockPublicAcls: false
-          BlockPublicPolicy: false
-          IgnorePublicAcls: false
-          RestrictPublicBuckets: false 
-          IndexDocument: index.html
-          ErrorDocument: 404.html
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false 
+        IndexDocument: index.html
+        ErrorDocument: 404.html
   
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy

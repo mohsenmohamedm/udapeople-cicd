@@ -240,7 +240,7 @@ jobs:
       - checkout
       - install_ansible
       - add_ssh_keys:
-          fingerprints: ["9a:ad:f5:34:85:ab:9d:29:34:f5:40:7c:7d:85:6c:53"]
+          fingerprints: ["4f:fa:30:9f:77:f1:b5:b8:a3:67:36:cd:0e:35:6d:b6"]
       - attach_workspace:
           at: ~/
       - run:
@@ -327,7 +327,7 @@ jobs:
       - install_ansible
       - install_nodejs
       - add_ssh_keys:
-          fingerprints: ["9a:ad:f5:34:85:ab:9d:29:34:f5:40:7c:7d:85:6c:53"]
+          fingerprints: ["4f:fa:30:9f:77:f1:b5:b8:a3:67:36:cd:0e:35:6d:b6"]
       - attach_workspace:
           at: ~/
       - restore_cache:
@@ -530,7 +530,7 @@ workflows:  # create workflows
       #     requires: [smoke-test]
       # - cleanup:
       #     requires: [cloudfront-update]
-      
+
 
 
 

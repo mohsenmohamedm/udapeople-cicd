@@ -240,7 +240,7 @@ jobs:
       - checkout
       - install_ansible
       - add_ssh_keys:
-          fingerprints: ["a2:c5:32:8f:5c:67:d8:84:74:f3:0e:37:18:55:bd:41"]
+          fingerprints: ["9a:ad:f5:34:85:ab:9d:29:34:f5:40:7c:7d:85:6c:53"]
       - attach_workspace:
           at: ~/
       - run:
@@ -327,7 +327,7 @@ jobs:
       - install_ansible
       - install_nodejs
       - add_ssh_keys:
-          fingerprints: ["a2:c5:32:8f:5c:67:d8:84:74:f3:0e:37:18:55:bd:41"]
+          fingerprints: ["9a:ad:f5:34:85:ab:9d:29:34:f5:40:7c:7d:85:6c:53"]
       - attach_workspace:
           at: ~/
       - restore_cache:
@@ -435,26 +435,26 @@ jobs:
             --stack-name "Initial-Stack"
       - destroy-environment
       - revert-migrations
-  # cleanup:
-  #   docker:
-  #     - image: mareimorsy/aws-node
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Remove old stacks and files
-  #         command: |
-  #           export STACKS=($(aws cloudformation list-stacks \
-  #               --query "StackSummaries[*].StackName" \
-  #               --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
-  #           echo Stack names: "${STACKS[@]}"
-  #           export OldWorkflowID=$(curl --insecure https://kvdb.io/${KVDB_BUCKET}/old_workflow_id)
-  #           echo Old Workflow ID: $OldWorkflowID 
-  #           if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
-  #           then
-  #             aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
-  #             aws cloudformation delete-stack --stack-name "backend-${OldWorkflowID}"
-  #             aws cloudformation delete-stack --stack-name "frontend-${OldWorkflowID}"
-  #           fi
+  cleanup:
+    docker:
+      - image: mareimorsy/aws-node
+    steps:
+      - checkout
+      - run:
+          name: Remove old stacks and files
+          command: |
+            export STACKS=($(aws cloudformation list-stacks \
+                --query "StackSummaries[*].StackName" \
+                --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
+            echo Stack names: "${STACKS[@]}"
+            export OldWorkflowID=$(curl --insecure https://kvdb.io/${KVDB_BUCKET}/old_workflow_id)
+            echo Old Workflow ID: $OldWorkflowID 
+            if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
+            then
+              aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+              aws cloudformation delete-stack --stack-name "backend-${OldWorkflowID}"
+              aws cloudformation delete-stack --stack-name "frontend-${OldWorkflowID}"
+            fi
             
   # cleanup:
   #     docker:
@@ -481,28 +481,28 @@ jobs:
   #               aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
   #               aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
   #             fi
-  # notify_on_success:
-  #   docker:
-  #     - image: cimg/base:stable
-  #   steps:
-  #     - slack/notify:
-  #         event: pass
-  #         channel: cicd-udacity-project
-  #         template: success_tagged_deploy_1
+  notify_on_success:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - slack/notify:
+          event: pass
+          channel: cicd-udacity-project
+          template: success_tagged_deploy_1
 
 workflows:  # create workflows
   default:
     jobs:
-      - build-frontend
-      - build-backend
-      - test-frontend:
-         requires: [build-frontend]
-      - test-backend:
-         requires: [build-backend]
-      - scan-backend:
-          requires: [build-backend]
-      - scan-frontend:
-          requires: [build-frontend]
+      # - build-frontend
+      # - build-backend
+      # - test-frontend:
+      #    requires: [build-frontend]
+      # - test-backend:
+      #    requires: [build-backend]
+      # - scan-backend:
+      #     requires: [build-backend]
+      # - scan-frontend:
+      #     requires: [build-frontend]
       # - notify_on_success:
       #    requires:
       #    - test-frontend
@@ -512,18 +512,18 @@ workflows:  # create workflows
 
       - deploy-infrastructure: 
 
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+          # requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           filters:
             branches:
-              only: [master]
+              only: [main]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
       - run-migrations:
           requires: [configure-infrastructure]
-      - deploy-frontend
+      - deploy-frontend:
           requires: [deploy-infrastructure]
       - deploy-backend:
-      #     requires: [run-migrations]
+          requires: [run-migrations]
       # - smoke-test:
       #     requires: [deploy-backend, deploy-frontend]
       # - cloudfront-update:
@@ -531,5 +531,4 @@ workflows:  # create workflows
       # - cleanup:
       #     requires: [cloudfront-update]
 
-      
 

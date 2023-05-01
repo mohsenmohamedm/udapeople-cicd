@@ -1,0 +1,2 @@
+http://udapeople-649f025.s3.amazonaws.com/index.html#/employees
+http://d3bat4hu3adm5t.cloudfront.net/
